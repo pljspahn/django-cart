@@ -34,14 +34,17 @@ class Cart:
         request.session[CART_ID] = cart.id
         return cart
 
-    def add(self, product, unit_price, quantity=1):
-        item = models.Item.objects.filter(cart=self.cart, product=product).first()
-        if item:
-            item.unit_price = unit_price
-            item.quantity += int(quantity)
-            item.save()
+    def add(self, product, unit_price, quantity=1, message=None):
+        if product.product_type == 'GiftcardProduct':
+            models.Item.objects.create(cart=self.cart, product=product, unit_price=unit_price, quantity=quantity, message=message)
         else:
-            models.Item.objects.create(cart=self.cart, product=product, unit_price=unit_price, quantity=quantity)
+            item = models.Item.objects.filter(cart=self.cart, product=product).first()
+            if item:
+                item.unit_price = unit_price
+                item.quantity += int(quantity)
+                item.save()
+            else:
+                models.Item.objects.create(cart=self.cart, product=product, unit_price=unit_price, quantity=quantity)
 
     def remove(self, product):
         item = models.Item.objects.filter(cart=self.cart, product=product).first()
