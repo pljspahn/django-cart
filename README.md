@@ -1,6 +1,7 @@
 # Introduction
 
-[![Build Status](https://travis-ci.com/bmentges/django-cart.svg?branch=master)](https://travis-ci.com/bmentges/django-cart)
+This fork from bmentges/django-cart is meant to add features for gift cards. Namely, adding a message field to cart items and separating line items that may be the same product but have different message fields.
+
 
 django-cart is a very simple application that just let you add and remove items from a session based cart. django-cart uses the power of the Django content type framework to enable you to have your own Product model and associate with the cart without having to change anything. Please refer to the tests to see how it's done.
 
